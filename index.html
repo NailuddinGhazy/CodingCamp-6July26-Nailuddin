@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense & Budget Visualizer</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <h1>💰 Expense &amp; Budget Visualizer</h1>
+        <button class="btn-theme" id="btn-theme" aria-label="Toggle dark/light mode">
+          🌙 Dark Mode
+        </button>
+      </header>
+
+      <!-- Balance Card -->
+      <section class="balance-card">
+        <p class="balance-label">Total Balance</p>
+        <p class="balance-amount" id="total-balance">Rp 0</p>
+      </section>
+
+      <!-- Form -->
+      <section class="card">
+        <h2 class="section-title">Tambah Transaksi</h2>
+        <form id="transaction-form" novalidate>
+          <div class="form-group">
+            <label for="item-name">Nama Barang</label>
+            <input
+              type="text"
+              id="item-name"
+              placeholder="e.g. Makan Ayam"
+              autocomplete="off"
+            />
+          </div>
+          <div class="form-group">
+            <label for="item-amount">Jumlah (Rp)</label>
+            <input
+              type="number"
+              id="item-amount"
+              placeholder="e.g. 25000"
+              min="1"
+            />
+          </div>
+          <div class="form-group">
+            <label for="item-category">Kategori</label>
+            <select id="item-category">
+              <option value="">-- Pilih Kategori --</option>
+              <option value="Food">🍔 Food</option>
+              <option value="Transport">🚗 Transport</option>
+              <option value="Fun">🎮 Fun</option>
+              <option value="Health">💊 Health</option>
+              <option value="Education">📚 Education</option>
+              <option value="Shopping">🛍️ Shopping</option>
+              <option value="Other">📦 Other</option>
+            </select>
+          </div>
+          <p class="error-msg" id="error-msg" aria-live="polite"></p>
+          <button type="submit" class="btn-add">Tambah</button>
+        </form>
+      </section>
+
+      <!-- Spending Limit -->
+      <section class="card">
+        <h2 class="section-title">⚠️ Batas Pengeluaran per Transaksi</h2>
+        <div class="limit-row">
+          <div class="form-group" style="margin-bottom:0; flex:1;">
+            <label for="spending-limit">Limit (Rp)</label>
+            <input
+              type="number"
+              id="spending-limit"
+              placeholder="e.g. 100000"
+              min="1"
+            />
+          </div>
+          <button class="btn-set-limit" id="btn-set-limit">Set Limit</button>
+        </div>
+        <p class="limit-info" id="limit-info"></p>
+      </section>
+
+      <!-- Transaction List -->
+      <section class="card">
+        <h2 class="section-title">Riwayat Transaksi</h2>
+
+        <!-- Sort controls -->
+        <div class="sort-row" role="group" aria-label="Urutkan transaksi">
+          <span class="sort-label">Urutkan:</span>
+          <button class="btn-sort active" id="sort-newest" data-sort="newest">Terbaru</button>
+          <button class="btn-sort" id="sort-amount" data-sort="amount">Amount ↓</button>
+          <button class="btn-sort" id="sort-category" data-sort="category">Kategori A–Z</button>
+        </div>
+
+        <ul class="transaction-list" id="transaction-list">
+          <!-- items injected by JS -->
+        </ul>
+        <p class="empty-msg" id="empty-msg">Belum ada transaksi.</p>
+      </section>
+
+      <!-- Pie Chart -->
+      <section class="card">
+        <h2 class="section-title">Pie Chart Pengeluaran</h2>
+        <div class="chart-wrapper">
+          <canvas id="expense-chart" aria-label="Pie chart pengeluaran" role="img"></canvas>
+        </div>
+        <p class="empty-msg" id="chart-empty-msg">Tambah transaksi untuk melihat chart.</p>
+      </section>
+    </div>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
